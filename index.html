@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Erica (Yue) Shao – Instructional Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1a2550; --blue: #2e4090; --rose: #c04444;
+    --muted: #4a5a8a; --glass: rgba(255,255,255,0.28); --glass-b: rgba(255,255,255,0.55);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: radial-gradient(ellipse 80% 80% at 50% 50%, #8aadd8 0%, #adc4e8 20%, #c8d9f0 45%, #dde8f8 70%, #eef4fc 100%);
+    background-attachment: fixed; min-height: 100vh;
+    color: var(--navy); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden;
+  }
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    background: rgba(160,195,235,0.55); backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255,255,255,0.4);
+    display: flex; justify-content: center; align-items: center;
+    padding: 16px 40px; gap: 40px; flex-wrap: wrap;
+  }
+  nav a { text-decoration: none; color: var(--navy); font-size: 13px; font-weight: 400; letter-spacing: 0.06em; position: relative; padding-bottom: 3px; transition: color 0.3s; }
+  nav a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1.5px; background: var(--rose); transition: width 0.3s; }
+  nav a:hover, nav a.active { color: var(--rose); }
+  nav a:hover::after, nav a.active::after { width: 100%; }
+
+  section { min-height: 100vh; padding: 120px 80px 80px; display: flex; align-items: center; }
+  section:nth-child(even) { background: rgba(255,255,255,0.15); }
+
+  .s-label { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--rose); margin-bottom: 12px; font-weight: 500; }
+  .s-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(32px,3.8vw,52px); font-weight: 300; line-height: 1.1; margin-bottom: 36px; }
+  .s-title em { font-style: italic; color: var(--blue); }
+  .btn { display: inline-block; padding: 13px 28px; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.09em; text-transform: uppercase; text-decoration: none; transition: all 0.3s; border: none; }
+  .btn-solid { background: var(--navy); color: #fff; }
+  .btn-solid:hover { background: var(--rose); }
+  .btn-ghost { background: transparent; color: var(--navy); border: 1.5px solid var(--navy); }
+  .btn-ghost:hover { border-color: var(--rose); color: var(--rose); }
+
+  /* HERO */
+  #home { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+  .hero-text { animation: fadeUp 0.9s ease both; }
+  .hero-eyebrow { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--rose); margin-bottom: 16px; font-weight: 500; }
+  .hero-text h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(48px,5.5vw,80px); font-weight: 300; line-height: 1.05; margin-bottom: 18px; }
+  .hero-text h1 em { font-style: italic; color: var(--blue); }
+  .hero-text .sub { font-size: 14px; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 20px; }
+  .hero-text p.desc { font-size: 15px; line-height: 1.82; color: var(--muted); max-width: 430px; margin-bottom: 36px; }
+  .btn-row { display: flex; gap: 14px; flex-wrap: wrap; }
+  .hero-photos { animation: fadeUp 1s ease 0.15s both; position: relative; height: 500px; }
+  .photo-back { position: absolute; right: 0; top: 60px; width: 85%; aspect-ratio: 3/4; object-fit: cover; object-position: top center; border-radius: 3px; box-shadow: 0 24px 60px rgba(20,35,90,0.22); }
+
+  /* ABOUT */
+  #about { flex-direction: column; }
+  .about-inner { max-width: 980px; margin: 0 auto; width: 100%; }
+  .about-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 56px; align-items: start; margin-bottom: 36px; }
+  .about-left p { font-size: 15px; line-height: 1.85; color: var(--muted); margin-bottom: 16px; }
+  .cpill { display: flex; align-items: center; gap: 8px; background: var(--glass); border: 1px solid var(--glass-b); backdrop-filter: blur(8px); border-radius: 30px; padding: 8px 18px; font-size: 13px; color: var(--navy); text-decoration: none; transition: background 0.2s; }
+  .cpill:hover { background: rgba(255,255,255,0.5); }
+  .contact-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
+
+  /* skill tags — two-column staggered brick layout, pure CSS */
+  .about-right { padding-top: 4px; }
+  .skill-stack { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  /* odd items: normal row; even items: shifted down by half a row */
+  .skill-tag-item {
+    background: rgba(255,255,255,0.88); border: 1px solid rgba(255,255,255,0.95);
+    backdrop-filter: blur(10px); border-radius: 14px; color: var(--navy);
+    font-weight: 400; letter-spacing: 0.01em; padding: 12px 16px; font-size: 12.5px;
+    box-shadow: 3px 5px 16px rgba(30,42,94,0.11), 0 1px 3px rgba(30,42,94,0.06);
+    transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.2s;
+    cursor: default; user-select: none; position: relative;
+  }
+  /* right-column items shift down to create stagger */
+  .skill-tag-item:nth-child(even) { margin-top: 20px; margin-bottom: -20px; }
+  .skill-tag-item:hover {
+    z-index: 10;
+    background: rgba(255,255,255,0.99);
+    transform: translateY(-4px) scale(1.04);
+    box-shadow: 5px 14px 30px rgba(30,42,94,0.18);
+  }
+
+  /* PROJECTS */
+  #projects { flex-direction: column; }
+  .projects-inner { max-width: 980px; margin: 0 auto; width: 100%; }
+  .projects-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 28px; margin-top: 8px; }
+  .proj-card { background: var(--glass); border: 1px solid var(--glass-b); backdrop-filter: blur(12px); border-radius: 4px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; display: flex; flex-direction: column; }
+  .proj-card:hover { transform: translateY(-6px); box-shadow: 0 20px 48px rgba(20,35,90,0.14); }
+  .proj-thumb { width: 100%; aspect-ratio: 16/10; display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 40px; font-style: italic; color: rgba(255,255,255,0.85); font-weight: 300; }
+  .proj-thumb.t1 { background: linear-gradient(135deg,#7a9cc8,#4e72a8); }
+  .proj-thumb.t2 { background: linear-gradient(135deg,#8898cc,#5a6ab0); }
+  .proj-thumb.t3 { background: linear-gradient(135deg,#6a8ec0,#3e5e98); }
+  .proj-info { padding: 22px 24px 26px; flex: 1; display: flex; flex-direction: column; }
+  .proj-tag { font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--rose); margin-bottom: 8px; font-weight: 500; }
+  .proj-info h3 { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 400; margin-bottom: 10px; }
+  .proj-info p { font-size: 13px; line-height: 1.75; color: var(--muted); flex: 1; }
+  .proj-footer { margin-top: 18px; padding-top: 14px; border-top: 1px solid rgba(46,64,144,0.1); display: flex; align-items: center; justify-content: space-between; }
+  .proj-status { font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+  .proj-status::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #e8a020; }
+  .proj-link { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--blue); text-decoration: none; display: flex; align-items: center; gap: 4px; transition: color 0.2s; }
+  .proj-link:hover { color: var(--rose); }
+
+  /* EDUCATION */
+  #education { flex-direction: column; }
+  .edu-inner { max-width: 860px; margin: 0 auto; width: 100%; }
+  .edu-cards { display: flex; flex-direction: column; gap: 20px; }
+  .edu-card { background: var(--glass); border: 1px solid var(--glass-b); backdrop-filter: blur(12px); border-radius: 4px; padding: 26px 30px; display: grid; grid-template-columns: 1fr auto; gap: 4px 24px; align-items: start; }
+  .edu-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 21px; font-weight: 400; margin-bottom: 4px; }
+  .edu-card .deg { font-size: 14px; color: var(--muted); margin-bottom: 8px; }
+  .edu-card .period { grid-column: 2; grid-row: 1; font-size: 12px; color: var(--rose); white-space: nowrap; text-align: right; padding-top: 4px; }
+  .edu-card .notes { grid-column: 1 / -1; list-style: none; display: flex; flex-direction: column; gap: 4px; }
+  .edu-card .notes li { font-size: 13.5px; color: var(--muted); line-height: 1.7; padding-left: 16px; position: relative; }
+  .edu-card .notes li::before { content: '–'; position: absolute; left: 0; color: var(--rose); }
+
+  /* EXPERIENCE */
+  #experience { flex-direction: column; }
+  .exp-inner { max-width: 880px; margin: 0 auto; width: 100%; }
+  .exp-title-row { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 36px; gap: 20px; }
+  .exp-title-row .s-title { margin-bottom: 0; }
+  .exp-list { display: flex; flex-direction: column; gap: 32px; }
+  .exp-item { display: grid; grid-template-columns: 170px 1fr; gap: 0 32px; }
+  .exp-meta { text-align: right; padding-top: 5px; }
+  .exp-meta .co { font-size: 12.5px; font-weight: 500; color: var(--navy); margin-bottom: 4px; line-height: 1.4; }
+  .exp-meta .loc { font-size: 11px; color: var(--muted); }
+  .exp-body h3 { font-family: 'Cormorant Garamond', serif; font-size: 21px; font-weight: 400; margin-bottom: 3px; }
+  .exp-body .period { font-size: 11.5px; color: var(--rose); margin-bottom: 12px; }
+  .exp-body ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .exp-body li { font-size: 13.5px; color: var(--muted); line-height: 1.7; padding-left: 16px; position: relative; }
+  .exp-body li::before { content: '–'; position: absolute; left: 0; color: var(--rose); }
+  .exp-divider { height: 1px; background: rgba(58,79,196,0.10); }
+
+  /* CONTACT */
+  #contact { flex-direction: column; }
+  .contact-inner { max-width: 700px; margin: 0 auto; width: 100%; }
+  .contact-form { display: flex; flex-direction: column; gap: 24px; margin-top: 36px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .fg { display: flex; flex-direction: column; gap: 8px; }
+  .fg label { font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--rose); }
+  .fg input, .fg textarea { background: transparent; border: none; border-bottom: 1px solid rgba(26,37,80,0.22); padding: 10px 0; font-family: 'DM Sans', sans-serif; font-size: 14.5px; color: var(--navy); outline: none; transition: border-color 0.3s; resize: none; }
+  .fg input:focus, .fg textarea:focus { border-color: var(--blue); }
+  .fg textarea { min-height: 90px; }
+
+  footer { text-align: center; padding: 36px; font-size: 11.5px; color: var(--muted); letter-spacing: 0.07em; border-top: 1px solid rgba(255,255,255,0.3); }
+
+  @keyframes fadeUp { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:none; } }
+  .reveal { opacity:0; transform:translateY(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
+  .reveal.visible { opacity:1; transform:none; }
+
+  @media(max-width:900px){ .projects-grid { grid-template-columns:1fr 1fr; } }
+  @media(max-width:800px){
+    section { padding:100px 24px 60px; }
+    #home { grid-template-columns:1fr; }
+    .hero-photos { order:-1; height:360px; }
+    .about-layout { grid-template-columns:1fr; }
+    .projects-grid { grid-template-columns:1fr; }
+    .exp-item { grid-template-columns:1fr; }
+    .exp-meta { text-align:left; }
+    .form-row { grid-template-columns:1fr; }
+    nav { gap:18px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#home">Home</a>
+  <a href="#about">About</a>
+  <a href="#projects">Projects</a>
+  <a href="#education">Education</a>
+  <a href="#experience">Experience</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<!-- HOME -->
+<section id="home">
+  <div class="hero-text">
+    <p class="hero-eyebrow">Instructional Designer &amp; EdTech Researcher</p>
+    <h1>Erica<br><em>(Yue) Shao</em></h1>
+    <p class="sub">Chapel Hill, NC &nbsp;·&nbsp; syue1@unc.edu</p>
+    <p class="desc">I design digital learning experiences that bridge pedagogy and technology — from restructuring K–12 curricula to building AI-assisted instructional workflows. Currently pursuing my Master's at UNC Chapel Hill.</p>
+    <div class="btn-row">
+      <a href="#projects" class="btn btn-solid">View My Work</a>
+      <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+    </div>
+  </div>
+  <div class="hero-photos">
+    <img class="photo-back" src="photo_grad.jpg" alt="Erica at graduation">
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-inner">
+    <p class="s-label reveal">About Me</p>
+    <h2 class="s-title reveal">Designing learning for<br><em>human growth</em></h2>
+    <div class="about-layout reveal">
+      <div class="about-left">
+        <p>I'm an instructional designer and educational researcher who believes great learning experiences are equal parts rigorous and humane. My work spans K–12 curriculum redesign, user research, and AI-powered content workflows — always with learners at the center.</p>
+        <p>Enrolled in UNC Chapel Hill's Master of Educational Innovation, Technology, and Entrepreneurship program, I bring experience across EdTech startups, classroom teaching, and community-focused education initiatives in both China and the US.</p>
+        <div class="contact-row">
+          <a href="mailto:syue1@unc.edu" class="cpill">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+            syue1@unc.edu
+          </a>
+          <a href="tel:9842916230" class="cpill">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12 19.79 19.79 0 0 1 1.08 3.4 2 2 0 0 1 3.06 1.24h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9.17a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.01z"/></svg>
+            (984) 291-6230
+          </a>
+          <span class="cpill">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            Chapel Hill, NC
+          </span>
+        </div>
+      </div>
+      <div class="about-right">
+        <div class="skill-stack">
+          <div class="skill-tag-item">Instructional Design</div>
+          <div class="skill-tag-item">UX Research</div>
+          <div class="skill-tag-item">Curriculum Development</div>
+          <div class="skill-tag-item">Needs Analysis</div>
+          <div class="skill-tag-item">Articulate Rise &amp; Storyline</div>
+          <div class="skill-tag-item">Figma &amp; Prototyping</div>
+          <div class="skill-tag-item">SPSS &amp; Data Analysis</div>
+          <div class="skill-tag-item">Canvas LMS</div>
+          <div class="skill-tag-item">AI Workflow Automation</div>
+          <div class="skill-tag-item">Adobe Suite</div>
+          <div class="skill-tag-item">Learning Science</div>
+          <div class="skill-tag-item">Product Management</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="projects-inner">
+    <p class="s-label reveal">Projects</p>
+    <h2 class="s-title reveal">Selected<br><em>Work</em></h2>
+    <div class="projects-grid">
+      <div class="proj-card reveal">
+        <div class="proj-thumb t1">01</div>
+        <div class="proj-info">
+          <p class="proj-tag">Instructional Design</p>
+          <h3>Project Title Here</h3>
+          <p>A brief description of your project — what problem it solved, who it was for, and what your role was in its creation.</p>
+          <div class="proj-footer">
+            <span class="proj-status">Coming Soon</span>
+            <a href="#" class="proj-link">View <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>
+          </div>
+        </div>
+      </div>
+      <div class="proj-card reveal">
+        <div class="proj-thumb t2">02</div>
+        <div class="proj-info">
+          <p class="proj-tag">Learning Analytics</p>
+          <h3>Project Title Here</h3>
+          <p>A brief description of your project — what problem it solved, who it was for, and what your role was in its creation.</p>
+          <div class="proj-footer">
+            <span class="proj-status">Coming Soon</span>
+            <a href="#" class="proj-link">View <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>
+          </div>
+        </div>
+      </div>
+      <div class="proj-card reveal">
+        <div class="proj-thumb t3">03</div>
+        <div class="proj-info">
+          <p class="proj-tag">UX &amp; Curriculum Design</p>
+          <h3>Project Title Here</h3>
+          <p>A brief description of your project — what problem it solved, who it was for, and what your role was in its creation.</p>
+          <div class="proj-footer">
+            <span class="proj-status">Coming Soon</span>
+            <a href="#" class="proj-link">View <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="edu-inner">
+    <p class="s-label reveal">Education</p>
+    <h2 class="s-title reveal">Academic<br><em>Background</em></h2>
+    <div class="edu-cards">
+      <div class="edu-card reveal">
+        <h3>University of North Carolina at Chapel Hill</h3>
+        <span class="period">Aug 2025 – Jul 2026</span>
+        <p class="deg">Master of Educational Innovation, Technology, and Entrepreneurship &nbsp;·&nbsp; NC, USA</p>
+        <ul class="notes">
+          <li>Relevant coursework: Learning Science, Adaptive Learning, Digital Design, and Instructional Methods</li>
+        </ul>
+      </div>
+      <div class="edu-card reveal">
+        <h3>Shanghai Normal University (SHNU)</h3>
+        <span class="period">Sep 2021 – Jun 2025</span>
+        <p class="deg">Bachelor of Education &nbsp;·&nbsp; Shanghai, China</p>
+        <ul class="notes">
+          <li>Third-Prize Scholarship from the School of Education (2022–2024)</li>
+          <li>Certificate: Teacher Qualification Certificate (Primary School)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="exp-inner">
+    <div class="exp-title-row">
+      <div>
+        <p class="s-label reveal">Experience</p>
+        <h2 class="s-title reveal">Internships &amp;<br><em>Projects</em></h2>
+      </div>
+      <a href="CV_1_.pdf" download class="btn btn-ghost reveal">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:6px;vertical-align:middle"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Resume
+      </a>
+    </div>
+    <div class="exp-list">
+      <div class="exp-item reveal">
+        <div class="exp-meta"><p class="co">MetaMetrics, Inc.</p><p class="loc">Remote, USA</p></div>
+        <div class="exp-body">
+          <h3>Product Management &amp; Design Intern</h3>
+          <p class="period">Aug 2025 – Present</p>
+          <ul>
+            <li>Aggregated 7 years of profile and financial data from 374 clients; derived a representative sample of 100 for cross-cohort analysis.</li>
+            <li>Designed and conducted surveys and interview protocols to assess product fit and technology readiness.</li>
+            <li>Synthesized findings into client personas and market insights to inform product strategy and phase implementation planning.</li>
+            <li>Researched K–3 ORF assessment offerings across EdTech companies, mapping literacy coverage and market trends.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="exp-divider"></div>
+      <div class="exp-item reveal">
+        <div class="exp-meta"><p class="co">Shanghai Huojian AI Education Technology</p><p class="loc">Shanghai, China</p></div>
+        <div class="exp-body">
+          <h3>Instructional Design Intern</h3>
+          <p class="period">Apr 2025 – Aug 2025</p>
+          <ul>
+            <li>Redesigned K–12 curricula in Math, Physics, Chemistry, and English — adapting 115 courses across 10+ regional versions to new standards.</li>
+            <li>Conducted pre-launch QA; documented instructional and technical issues before and after release.</li>
+            <li>Co-developed an AI-assisted workflow using an open-source agent framework, achieving a ~5× increase in content production efficiency.</li>
+            <li>Integrated content into an AI-powered programming platform; converted materials to HTML and debugged logic and syntax errors.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="exp-divider"></div>
+      <div class="exp-item reveal">
+        <div class="exp-meta"><p class="co">Hui Shi Primary School</p><p class="loc">Shanghai, China</p></div>
+        <div class="exp-body">
+          <h3>Intern Teacher &amp; Researcher</h3>
+          <p class="period">Sep 2024 – Jan 2025</p>
+          <ul>
+            <li>Designed, taught, and iteratively improved standards-aligned Chinese Language and Literacy lessons integrating multimedia resources.</li>
+            <li>Participated in school- and district-level teaching and research activities.</li>
+            <li>Conducted a needs analysis on teacher professional development gaps; synthesized insights into actionable instructional design recommendations.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="exp-divider"></div>
+      <div class="exp-item reveal">
+        <div class="exp-meta"><p class="co">Entrepreneurship Training Program — Xinjiang</p><p class="loc">Shanghai, China</p></div>
+        <div class="exp-body">
+          <h3>Core Team Member</h3>
+          <p class="period">Dec 2023 – Oct 2024</p>
+          <ul>
+            <li>Researched rural women's vocational skill gaps through literature review, questionnaires, interviews, and case analyses.</li>
+            <li>Analyzed local industrial structures to identify high-potential industries and education pathways supporting rural development.</li>
+            <li>Developed a vocational education curriculum framework and designed a mobile app prototype for women's entrepreneurship support.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <p class="s-label reveal">Contact</p>
+    <h2 class="s-title reveal">Let's<br><em>Connect</em></h2>
+    <p class="reveal" style="font-size:15px;color:var(--muted);line-height:1.8;">Open to opportunities in instructional design, EdTech, and learning research. Feel free to reach out!</p>
+    <div class="contact-form reveal">
+      <div class="form-row">
+        <div class="fg"><label>Name</label><input type="text" placeholder="Your name"></div>
+        <div class="fg"><label>Email</label><input type="email" placeholder="your@email.com"></div>
+      </div>
+      <div class="fg"><label>Subject</label><input type="text" placeholder="What's this about?"></div>
+      <div class="fg"><label>Message</label><textarea placeholder="Tell me about your project or idea..."></textarea></div>
+      <div><button class="btn btn-solid" onclick="alert('Please connect a mail backend such as Formspree to activate this form.')">Send Message</button></div>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Erica (Yue) Shao &nbsp;·&nbsp; Instructional Designer &amp; EdTech Researcher &nbsp;·&nbsp; Chapel Hill, NC</footer>
+
+<script>
+(function() {
+
+  // Scroll reveal
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
+
+  // Active nav
+  var secs = document.querySelectorAll('section[id]');
+  window.addEventListener('scroll', function() {
+    var cur = '';
+    secs.forEach(function(s) { if (window.scrollY >= s.offsetTop - 130) cur = s.id; });
+    document.querySelectorAll('nav a').forEach(function(a) {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + cur);
+    });
+  });
+})();
+</script>
+</body>
+</html>
