@@ -18,21 +18,29 @@
     background-attachment: fixed; min-height: 100vh;
     color: var(--navy); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden;
   }
+
+  /* NAV */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 200;
     background: rgba(160,195,235,0.55); backdrop-filter: blur(20px);
     border-bottom: 1px solid rgba(255,255,255,0.4);
     display: flex; justify-content: center; align-items: center;
-    padding: 16px 40px; gap: 40px; flex-wrap: wrap;
+    padding: 14px 40px; gap: 36px; flex-wrap: wrap;
   }
-  nav a { text-decoration: none; color: var(--navy); font-size: 13px; font-weight: 400; letter-spacing: 0.06em; position: relative; padding-bottom: 3px; transition: color 0.3s; }
-  nav a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1.5px; background: var(--rose); transition: width 0.3s; }
-  nav a:hover, nav a.active { color: var(--rose); }
-  nav a:hover::after, nav a.active::after { width: 100%; }
+  .nav-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-weight: 600; font-style: italic;
+    color: var(--rose); letter-spacing: 0.03em;
+    text-decoration: none; margin-right: auto;
+  }
+  nav a.nav-link { text-decoration: none; color: var(--navy); font-size: 13px; font-weight: 400; letter-spacing: 0.06em; position: relative; padding-bottom: 3px; transition: color 0.3s; }
+  nav a.nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1.5px; background: var(--rose); transition: width 0.3s; }
+  nav a.nav-link:hover, nav a.nav-link.active { color: var(--rose); }
+  nav a.nav-link:hover::after, nav a.nav-link.active::after { width: 100%; }
 
-  section { min-height: 100vh; padding: 120px 80px 80px; display: flex; align-items: center; }
+  /* SECTIONS */
+  section { min-height: 100vh; padding: 120px 80px 80px; display: flex; align-items: center; justify-content: center; }
   section:nth-child(even) { background: rgba(255,255,255,0.15); }
-
   .s-label { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--rose); margin-bottom: 12px; font-weight: 500; }
   .s-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(32px,3.8vw,52px); font-weight: 300; line-height: 1.1; margin-bottom: 36px; }
   .s-title em { font-style: italic; color: var(--blue); }
@@ -42,56 +50,39 @@
   .btn-ghost { background: transparent; color: var(--navy); border: 1.5px solid var(--navy); }
   .btn-ghost:hover { border-color: var(--rose); color: var(--rose); }
 
-  /* HERO — photo left (smaller), text right */
-  #home { display: grid; grid-template-columns: 0.55fr 1.45fr; gap: 64px; align-items: center; }
-  .hero-text { animation: fadeUp 0.9s ease both; }
-  .hero-eyebrow { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--rose); margin-bottom: 16px; font-weight: 500; }
-  .hero-text h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(48px,5.8vw,84px); font-weight: 300; line-height: 1.05; margin-bottom: 18px; }
-  .hero-text h1 em { font-style: italic; color: var(--blue); }
-  .hero-text .sub { font-size: 14px; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 20px; }
-  .hero-text p.desc { font-size: 15px; line-height: 1.85; color: var(--muted); max-width: 460px; margin-bottom: 36px; }
+  /* HERO */
+  #home { padding: 120px 80px 80px; min-height: 100vh; }
+  .hero-inner { display: grid; grid-template-columns: 1fr 1.1fr; gap: 64px; align-items: center; max-width: 1080px; width: 100%; }
+  .hero-photo-col { animation: fadeUp 1s ease 0.1s both; }
+  .hero-photo-col img { width: 100%; aspect-ratio: 4/3; object-fit: cover; object-position: center center; border-radius: 6px; box-shadow: 0 20px 56px rgba(20,35,90,0.18); display: block; }
+  .hero-text-col { animation: fadeUp 0.9s ease both; }
+  .hero-eyebrow { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--rose); margin-bottom: 18px; font-weight: 500; }
+  .hero-text-col h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(44px,4.8vw,72px); font-weight: 300; line-height: 1.05; margin-bottom: 16px; }
+  .hero-text-col h1 em { font-style: italic; color: var(--blue); }
+  .hero-sub { font-size: 14px; letter-spacing: 0.05em; color: var(--muted); margin-bottom: 20px; }
+  .hero-desc { font-size: 15px; line-height: 1.85; color: var(--muted); margin-bottom: 36px; }
   .btn-row { display: flex; gap: 14px; flex-wrap: wrap; }
-  /* photo column */
-  .hero-photos { animation: fadeUp 1s ease 0.15s both; position: relative; height: 380px; }
-  .photo-back {
-    position: absolute;
-    left: 50%; transform: translateX(-50%);
-    top: 20px;
-    width: 88%;
-    aspect-ratio: 3/4; object-fit: cover; object-position: top center;
-    border-radius: 4px; box-shadow: 0 20px 56px rgba(20,35,90,0.20);
-  }
 
   /* ABOUT */
   #about { flex-direction: column; }
-  .about-inner { max-width: 980px; margin: 0 auto; width: 100%; }
-  .about-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 56px; align-items: start; margin-bottom: 36px; }
+  .about-inner { max-width: 980px; width: 100%; }
+  .about-outer { display: grid; grid-template-columns: 2fr 1fr; gap: 56px; align-items: start; }
+  .about-left .s-label { margin-bottom: 12px; }
+  .about-left .s-title { margin-bottom: 28px; }
   .about-left p { font-size: 15px; line-height: 1.85; color: var(--muted); margin-bottom: 16px; }
+  .about-left p:last-child { margin-bottom: 0; }
   .cpill { display: flex; align-items: center; gap: 8px; background: var(--glass); border: 1px solid var(--glass-b); backdrop-filter: blur(8px); border-radius: 30px; padding: 8px 18px; font-size: 13px; color: var(--navy); text-decoration: none; transition: background 0.2s; }
   .cpill:hover { background: rgba(255,255,255,0.5); }
   .contact-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
-
-  /* skill tags */
-  .about-right { padding-top: 4px; }
+  .about-right { padding-top: 82px; }
   .skill-stack { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .skill-tag-item {
-    background: rgba(255,255,255,0.88); border: 1px solid rgba(255,255,255,0.95);
-    backdrop-filter: blur(10px); border-radius: 14px; color: var(--navy);
-    font-weight: 400; letter-spacing: 0.01em; padding: 12px 16px; font-size: 12.5px;
-    box-shadow: 3px 5px 16px rgba(30,42,94,0.11), 0 1px 3px rgba(30,42,94,0.06);
-    transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.2s;
-    cursor: default; user-select: none; position: relative;
-  }
+  .skill-tag-item { background: rgba(255,255,255,0.88); border: 1px solid rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-radius: 14px; color: var(--navy); font-weight: 400; letter-spacing: 0.01em; padding: 12px 16px; font-size: 12.5px; box-shadow: 3px 5px 16px rgba(30,42,94,0.11), 0 1px 3px rgba(30,42,94,0.06); transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.2s; cursor: default; user-select: none; position: relative; }
   .skill-tag-item:nth-child(even) { margin-top: 20px; margin-bottom: -20px; }
-  .skill-tag-item:hover {
-    z-index: 10; background: rgba(255,255,255,0.99);
-    transform: translateY(-4px) scale(1.04);
-    box-shadow: 5px 14px 30px rgba(30,42,94,0.18);
-  }
+  .skill-tag-item:hover { z-index: 10; background: rgba(255,255,255,0.99); transform: translateY(-4px) scale(1.04); box-shadow: 5px 14px 30px rgba(30,42,94,0.18); }
 
   /* PROJECTS */
   #projects { flex-direction: column; }
-  .projects-inner { max-width: 980px; margin: 0 auto; width: 100%; }
+  .projects-inner { max-width: 980px; width: 100%; }
   .projects-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 28px; margin-top: 8px; }
   .proj-card { background: var(--glass); border: 1px solid var(--glass-b); backdrop-filter: blur(12px); border-radius: 4px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; display: flex; flex-direction: column; }
   .proj-card:hover { transform: translateY(-6px); box-shadow: 0 20px 48px rgba(20,35,90,0.14); }
@@ -111,7 +102,7 @@
 
   /* EDUCATION */
   #education { flex-direction: column; }
-  .edu-inner { max-width: 860px; margin: 0 auto; width: 100%; }
+  .edu-inner { max-width: 860px; width: 100%; }
   .edu-cards { display: flex; flex-direction: column; gap: 20px; }
   .edu-card { background: var(--glass); border: 1px solid var(--glass-b); backdrop-filter: blur(12px); border-radius: 4px; padding: 26px 30px; display: grid; grid-template-columns: 1fr auto; gap: 4px 24px; align-items: start; }
   .edu-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 21px; font-weight: 400; margin-bottom: 4px; }
@@ -119,11 +110,11 @@
   .edu-card .period { grid-column: 2; grid-row: 1; font-size: 12px; color: var(--rose); white-space: nowrap; text-align: right; padding-top: 4px; }
   .edu-card .notes { grid-column: 1 / -1; list-style: none; display: flex; flex-direction: column; gap: 4px; }
   .edu-card .notes li { font-size: 13.5px; color: var(--muted); line-height: 1.7; padding-left: 16px; position: relative; }
-  .edu-card .notes li::before { content: '–'; position: absolute; left: 0; color: var(--rose); }
+  .edu-card .notes li::before { content: '-'; position: absolute; left: 0; color: var(--rose); }
 
   /* EXPERIENCE */
   #experience { flex-direction: column; }
-  .exp-inner { max-width: 880px; margin: 0 auto; width: 100%; }
+  .exp-inner { max-width: 880px; width: 100%; }
   .exp-title-row { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 36px; gap: 20px; }
   .exp-title-row .s-title { margin-bottom: 0; }
   .exp-list { display: flex; flex-direction: column; gap: 32px; }
@@ -135,12 +126,12 @@
   .exp-body .period { font-size: 11.5px; color: var(--rose); margin-bottom: 12px; }
   .exp-body ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
   .exp-body li { font-size: 13.5px; color: var(--muted); line-height: 1.7; padding-left: 16px; position: relative; }
-  .exp-body li::before { content: '–'; position: absolute; left: 0; color: var(--rose); }
+  .exp-body li::before { content: '-'; position: absolute; left: 0; color: var(--rose); }
   .exp-divider { height: 1px; background: rgba(58,79,196,0.10); }
 
   /* CONTACT */
   #contact { flex-direction: column; }
-  .contact-inner { max-width: 700px; margin: 0 auto; width: 100%; }
+  .contact-inner { max-width: 700px; width: 100%; }
   .contact-form { display: flex; flex-direction: column; gap: 24px; margin-top: 36px; }
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
   .fg { display: flex; flex-direction: column; gap: 8px; }
@@ -150,49 +141,51 @@
   .fg textarea { min-height: 90px; }
 
   footer { text-align: center; padding: 36px; font-size: 11.5px; color: var(--muted); letter-spacing: 0.07em; border-top: 1px solid rgba(255,255,255,0.3); }
-
-  @keyframes fadeUp { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:none; } }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:none; } }
   .reveal { opacity:0; transform:translateY(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
   .reveal.visible { opacity:1; transform:none; }
 
   @media(max-width:900px){ .projects-grid { grid-template-columns:1fr 1fr; } }
   @media(max-width:800px){
-    section { padding:100px 24px 60px; }
-    #home { grid-template-columns:1fr; }
-    .hero-photos { order:-1; height:320px; }
-    .about-layout { grid-template-columns:1fr; }
+    section, #home { padding:100px 24px 60px; }
+    .hero-inner { grid-template-columns:1fr; gap:36px; }
+    .about-outer { grid-template-columns:1fr; }
     .projects-grid { grid-template-columns:1fr; }
     .exp-item { grid-template-columns:1fr; }
     .exp-meta { text-align:left; }
     .form-row { grid-template-columns:1fr; }
-    nav { gap:18px; }
+    nav { gap:16px; padding: 12px 20px; }
+    .nav-name { margin-right: 0; width: 100%; text-align: center; }
   }
 </style>
 </head>
 <body>
 
 <nav>
-  <a href="#home">Home</a>
-  <a href="#about">About</a>
-  <a href="#projects">Projects</a>
-  <a href="#education">Education</a>
-  <a href="#experience">Experience</a>
-  <a href="#contact">Contact</a>
+  <a href="#home" class="nav-name">Erica Shao</a>
+  <a href="#home" class="nav-link">Home</a>
+  <a href="#about" class="nav-link">About</a>
+  <a href="#projects" class="nav-link">Projects</a>
+  <a href="#education" class="nav-link">Education</a>
+  <a href="#experience" class="nav-link">Experience</a>
+  <a href="#contact" class="nav-link">Contact</a>
 </nav>
 
 <!-- HOME -->
 <section id="home">
-  <div class="hero-photos">
-    <img class="photo-back" src="photo_grad.jpg" alt="Erica at graduation">
-  </div>
-  <div class="hero-text">
-    <p class="hero-eyebrow">Instructional Designer &amp; EdTech Researcher</p>
-    <h1>Erica<br><em>(Yue) Shao</em></h1>
-    <p class="sub">Chapel Hill, NC &nbsp;·&nbsp; syue1@unc.edu</p>
-    <p class="desc">I design digital learning experiences that bridge pedagogy and technology — from restructuring K–12 curricula to building AI-assisted instructional workflows. Currently pursuing my Master's at UNC Chapel Hill.</p>
-    <div class="btn-row">
-      <a href="#projects" class="btn btn-solid">View My Work</a>
-      <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+  <div class="hero-inner">
+    <div class="hero-photo-col">
+      <img src="photo_grad.jpg" alt="Erica Shao">
+    </div>
+    <div class="hero-text-col">
+      <p class="hero-eyebrow">Instructional Designer &amp; Learning Experience Designer</p>
+      <h1>Erica<br><em>(Yue) Shao</em></h1>
+      <p class="hero-sub">Chapel Hill, NC &nbsp;&middot;&nbsp; syue1@unc.edu</p>
+      <p class="hero-desc">I turn learning science into real experiences -- designing curricula, prototyping interactive tools, and building systems that actually help people learn. Currently finishing my Master's at UNC Chapel Hill, and ready to bring that work somewhere it matters.</p>
+      <div class="btn-row">
+        <a href="#projects" class="btn btn-solid">View My Work</a>
+        <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+      </div>
     </div>
   </div>
 </section>
@@ -200,12 +193,13 @@
 <!-- ABOUT -->
 <section id="about">
   <div class="about-inner">
-    <p class="s-label reveal">About Me</p>
-    <h2 class="s-title reveal">Designing learning for<br><em>human growth</em></h2>
-    <div class="about-layout reveal">
+    <div class="about-outer reveal">
       <div class="about-left">
-        <p>I'm an instructional designer and educational researcher who believes great learning experiences are equal parts rigorous and humane. My work spans K–12 curriculum redesign, user research, and AI-powered content workflows — always with learners at the center.</p>
-        <p>Enrolled in UNC Chapel Hill's Master of Educational Innovation, Technology, and Entrepreneurship program, I bring experience across EdTech startups, classroom teaching, and community-focused education initiatives in both China and the US.</p>
+        <p class="s-label">About Me</p>
+        <h2 class="s-title">Learning design that's<br><em>grounded in people</em></h2>
+        <p>I'm an instructional and learning experience designer who gets genuinely excited about the gap between how learning is designed and how it actually happens. My work sits at the intersection of learning science, UX, and educational technology -- and most of it starts with a good needs analysis and ends with a prototype someone can actually use.</p>
+        <p>I've spent the past few years designing and redesigning learning experiences across contexts: K-12 classrooms in Shanghai, EdTech platforms, and graduate research at UNC Chapel Hill. What ties it all together is a belief that good design should be invisible -- learners shouldn't notice the scaffolding, they should just feel more capable.</p>
+        <p>I'm currently looking for instructional designer or LXD roles at organizations that take learning seriously -- whether that's an EdTech company, a university, or a corporate L&amp;D team building something worth building.</p>
         <div class="contact-row">
           <a href="mailto:syue1@unc.edu" class="cpill">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
@@ -252,7 +246,7 @@
         <div class="proj-info">
           <p class="proj-tag">Instructional Design</p>
           <h3>Project Title Here</h3>
-          <p>A brief description of your project — what problem it solved, who it was for, and what your role was in its creation.</p>
+          <p>A brief description of your project -- what problem it solved, who it was for, and what your role was in its creation.</p>
           <div class="proj-footer">
             <span class="proj-status">Coming Soon</span>
             <a href="#" class="proj-link">View <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>
@@ -264,7 +258,7 @@
         <div class="proj-info">
           <p class="proj-tag">Learning Analytics</p>
           <h3>Project Title Here</h3>
-          <p>A brief description of your project — what problem it solved, who it was for, and what your role was in its creation.</p>
+          <p>A brief description of your project -- what problem it solved, who it was for, and what your role was in its creation.</p>
           <div class="proj-footer">
             <span class="proj-status">Coming Soon</span>
             <a href="#" class="proj-link">View <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>
@@ -276,7 +270,7 @@
         <div class="proj-info">
           <p class="proj-tag">UX &amp; Curriculum Design</p>
           <h3>Project Title Here</h3>
-          <p>A brief description of your project — what problem it solved, who it was for, and what your role was in its creation.</p>
+          <p>A brief description of your project -- what problem it solved, who it was for, and what your role was in its creation.</p>
           <div class="proj-footer">
             <span class="proj-status">Coming Soon</span>
             <a href="#" class="proj-link">View <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>
@@ -295,18 +289,18 @@
     <div class="edu-cards">
       <div class="edu-card reveal">
         <h3>University of North Carolina at Chapel Hill</h3>
-        <span class="period">Aug 2025 – Jul 2026</span>
-        <p class="deg">Master of Educational Innovation, Technology, and Entrepreneurship &nbsp;·&nbsp; NC, USA</p>
+        <span class="period">Aug 2025 - Jul 2026</span>
+        <p class="deg">Master of Educational Innovation, Technology, and Entrepreneurship &nbsp;&middot;&nbsp; NC, USA</p>
         <ul class="notes">
           <li>Relevant coursework: Learning Science, Adaptive Learning, Digital Design, and Instructional Methods</li>
         </ul>
       </div>
       <div class="edu-card reveal">
         <h3>Shanghai Normal University (SHNU)</h3>
-        <span class="period">Sep 2021 – Jun 2025</span>
-        <p class="deg">Bachelor of Education &nbsp;·&nbsp; Shanghai, China</p>
+        <span class="period">Sep 2021 - Jun 2025</span>
+        <p class="deg">Bachelor of Education &nbsp;&middot;&nbsp; Shanghai, China</p>
         <ul class="notes">
-          <li>Third-Prize Scholarship from the School of Education (2022–2024)</li>
+          <li>Third-Prize Scholarship from the School of Education (2022-2024)</li>
           <li>Certificate: Teacher Qualification Certificate (Primary School)</li>
         </ul>
       </div>
@@ -332,12 +326,12 @@
         <div class="exp-meta"><p class="co">MetaMetrics, Inc.</p><p class="loc">Remote, USA</p></div>
         <div class="exp-body">
           <h3>Product Management &amp; Design Intern</h3>
-          <p class="period">Aug 2025 – Present</p>
+          <p class="period">Aug 2025 - Present</p>
           <ul>
             <li>Aggregated 7 years of profile and financial data from 374 clients; derived a representative sample of 100 for cross-cohort analysis.</li>
             <li>Designed and conducted surveys and interview protocols to assess product fit and technology readiness.</li>
             <li>Synthesized findings into client personas and market insights to inform product strategy and phase implementation planning.</li>
-            <li>Researched K–3 ORF assessment offerings across EdTech companies, mapping literacy coverage and market trends.</li>
+            <li>Researched K-3 ORF assessment offerings across EdTech companies, mapping literacy coverage and market trends.</li>
           </ul>
         </div>
       </div>
@@ -346,11 +340,11 @@
         <div class="exp-meta"><p class="co">Shanghai Huojian AI Education Technology</p><p class="loc">Shanghai, China</p></div>
         <div class="exp-body">
           <h3>Instructional Design Intern</h3>
-          <p class="period">Apr 2025 – Aug 2025</p>
+          <p class="period">Apr 2025 - Aug 2025</p>
           <ul>
-            <li>Redesigned K–12 curricula in Math, Physics, Chemistry, and English — adapting 115 courses across 10+ regional versions to new standards.</li>
+            <li>Redesigned K-12 curricula in Math, Physics, Chemistry, and English -- adapting 115 courses across 10+ regional versions to new standards.</li>
             <li>Conducted pre-launch QA; documented instructional and technical issues before and after release.</li>
-            <li>Co-developed an AI-assisted workflow using an open-source agent framework, achieving a ~5× increase in content production efficiency.</li>
+            <li>Co-developed an AI-assisted workflow using an open-source agent framework, achieving a ~5x increase in content production efficiency.</li>
             <li>Integrated content into an AI-powered programming platform; converted materials to HTML and debugged logic and syntax errors.</li>
           </ul>
         </div>
@@ -360,7 +354,7 @@
         <div class="exp-meta"><p class="co">Hui Shi Primary School</p><p class="loc">Shanghai, China</p></div>
         <div class="exp-body">
           <h3>Intern Teacher &amp; Researcher</h3>
-          <p class="period">Sep 2024 – Jan 2025</p>
+          <p class="period">Sep 2024 - Jan 2025</p>
           <ul>
             <li>Designed, taught, and iteratively improved standards-aligned Chinese Language and Literacy lessons integrating multimedia resources.</li>
             <li>Participated in school- and district-level teaching and research activities.</li>
@@ -370,10 +364,10 @@
       </div>
       <div class="exp-divider"></div>
       <div class="exp-item reveal">
-        <div class="exp-meta"><p class="co">Entrepreneurship Training Program — Xinjiang</p><p class="loc">Shanghai, China</p></div>
+        <div class="exp-meta"><p class="co">Entrepreneurship Training Program - Xinjiang</p><p class="loc">Shanghai, China</p></div>
         <div class="exp-body">
           <h3>Core Team Member</h3>
-          <p class="period">Dec 2023 – Oct 2024</p>
+          <p class="period">Dec 2023 - Oct 2024</p>
           <ul>
             <li>Researched rural women's vocational skill gaps through literature review, questionnaires, interviews, and case analyses.</li>
             <li>Analyzed local industrial structures to identify high-potential industries and education pathways supporting rural development.</li>
@@ -390,20 +384,20 @@
   <div class="contact-inner">
     <p class="s-label reveal">Contact</p>
     <h2 class="s-title reveal">Let's<br><em>Connect</em></h2>
-    <p class="reveal" style="font-size:15px;color:var(--muted);line-height:1.8;">Open to opportunities in instructional design, EdTech, and learning research. Feel free to reach out!</p>
+    <p class="reveal" style="font-size:15px;color:var(--muted);line-height:1.8;">Open to instructional design and LXD roles -- feel free to reach out to chat about a position, a project, or just learning design in general.</p>
     <div class="contact-form reveal">
       <div class="form-row">
         <div class="fg"><label>Name</label><input type="text" placeholder="Your name"></div>
         <div class="fg"><label>Email</label><input type="email" placeholder="your@email.com"></div>
       </div>
       <div class="fg"><label>Subject</label><input type="text" placeholder="What's this about?"></div>
-      <div class="fg"><label>Message</label><textarea placeholder="Tell me about your project or idea..."></textarea></div>
+      <div class="fg"><label>Message</label><textarea placeholder="Tell me about the role or project..."></textarea></div>
       <div><button class="btn btn-solid" onclick="alert('Please connect a mail backend such as Formspree to activate this form.')">Send Message</button></div>
     </div>
   </div>
 </section>
 
-<footer>© 2026 Erica (Yue) Shao &nbsp;·&nbsp; Instructional Designer &amp; EdTech Researcher &nbsp;·&nbsp; Chapel Hill, NC</footer>
+<footer>© 2026 Erica (Yue) Shao &nbsp;&middot;&nbsp; Instructional Designer &amp; Learning Experience Designer &nbsp;&middot;&nbsp; Chapel Hill, NC</footer>
 
 <script>
 (function() {
@@ -418,7 +412,7 @@
   window.addEventListener('scroll', function() {
     var cur = '';
     secs.forEach(function(s) { if (window.scrollY >= s.offsetTop - 130) cur = s.id; });
-    document.querySelectorAll('nav a').forEach(function(a) {
+    document.querySelectorAll('nav a.nav-link').forEach(function(a) {
       a.classList.toggle('active', a.getAttribute('href') === '#' + cur);
     });
   });
