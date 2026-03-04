@@ -30,24 +30,25 @@
   .nav-name {
     font-family: 'Cormorant Garamond', serif;
     font-size: 20px; font-weight: 700; font-style: italic;
-    color:  var(--blue); letter-spacing: 0.03em;
+    color: var(--blue); letter-spacing: 0.03em;
     text-decoration: none; margin-right: auto;
     display: flex; align-items: center; gap: 7px;
   }
-  
   .nav-first-name {
     display: inline;
-    transition: opacity 0.15s ease;
+    transition: opacity 0.2s ease;
   }
   .nav-flower {
-    height: 30px; width: 30px; object-fit: contain;
+    height: 20px; width: 20px; object-fit: contain;
     vertical-align: middle;
-    transition: transform 0.4s ease;
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease;
     filter: drop-shadow(0 1px 2px rgba(0,0,0,0.08));
+    cursor: pointer;
+    display: inline-block;
   }
-  .nav-name:hover 
-  .nav-flower {
-    transform: rotate(15deg) scale(1.1);
+  .nav-flower:hover {
+    transform: rotate(30deg) scale(1.15);
+    filter: drop-shadow(0 2px 8px rgba(192,68,68,0.4));
   }
   nav a.nav-link { text-decoration: none; color: var(--navy); font-size: 13px; font-weight: 500; letter-spacing: 0.06em; position: relative; padding-bottom: 3px; transition: color 0.3s; }
   nav a.nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1.5px; background: var(--rose); transition: width 0.3s; }
@@ -178,7 +179,10 @@
 <body>
 
 <nav>
-  <a href="#home" class="nav-name"><span class="nav-first-name">Erica</span> Shao <img src="image/flower.png" alt="Flower">
+  <a href="#home" class="nav-name">
+    <span class="nav-first-name">Yue</span> Shao
+    <img src="image/flower.png" alt="Flower" class="nav-flower">
+  </a>
   <a href="#projects" class="nav-link">Projects</a>
   <a href="#education" class="nav-link">Education</a>
   <a href="#experience" class="nav-link">Experience</a>
@@ -411,7 +415,7 @@
   var subject = document.querySelectorAll('.contact-form input[type=text]')[1].value;
   var message = document.querySelector('.contact-form textarea').value;
   var mailto = 'mailto:syue1@unc.edu?subject=' + encodeURIComponent(subject || 'Message from ' + name) + '&body=' + encodeURIComponent('From: ' + name + '\nEmail: ' + email + '\n\n' + message);
-  window.open(mailto, "_blank");
+  window.open(mailto, '_blank');
 ">Send Message</button></div>
     </div>
   </div>
@@ -437,20 +441,20 @@
     });
   });
 
-  // Flower hover: Erica <-> Yue with debounce to prevent flickering
+  // Flower hover: default Yue, shows Erica on hover
   var flower = document.querySelector('.nav-flower');
   var firstName = document.querySelector('.nav-first-name');
   if (flower && firstName) {
     var leaveTimer = null;
     flower.addEventListener('mouseenter', function() {
       if (leaveTimer) { clearTimeout(leaveTimer); leaveTimer = null; }
-      firstName.textContent = 'Yue';
+      firstName.textContent = 'Erica';
     });
     flower.addEventListener('mouseleave', function() {
       leaveTimer = setTimeout(function() {
-        firstName.textContent = 'Erica';
+        firstName.textContent = 'Yue';
         leaveTimer = null;
-      }, 100);
+      }, 150);
     });
   }
 })();
