@@ -449,12 +449,14 @@
  var flower = document.querySelector('.nav-flower');
 var firstName = document.querySelector('.nav-first-name');
 if (flower && firstName) {
-  flower.addEventListener('mouseenter', function() {
-    firstName.textContent = 'Yue';
-  });
-  flower.addEventListener('mouseleave', function() {
-    firstName.textContent = 'Erica';
-  });
+ flower.addEventListener('mouseenter', function() {
+  firstName.textContent = 'Yue';
+  firstName.style.marginRight = '-10px';
+});
+flower.addEventListener('mouseleave', function() {
+  firstName.textContent = 'Erica';
+  firstName.style.marginRight = '0px';
+});
 }
 })();
 </script>
