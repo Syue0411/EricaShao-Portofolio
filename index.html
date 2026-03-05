@@ -40,6 +40,10 @@
   margin-right: -10px;
   transition: opacity 0.2s ease;
 }
+  .nav-name-text {
+  display: inline-block;
+  min-width: 90px;
+}
   .nav-flower {
     height: 20px; width: 20px; object-fit: contain;
     vertical-align: middle;
@@ -181,10 +185,10 @@
 <body>
 
 <nav>
-  <a href="#home" class="nav-name">
-    <span class="nav-first-name" style="margin-right:6px;">Erica</span> Shao
-    <img src="image/flower.png" alt="Flower" class="nav-flower">
-  </a>
+ <a href="#home" class="nav-name">
+  <span class="nav-name-text"><span class="nav-first-name">Erica</span> Shao</span>
+  <img src="image/flower.png" alt="Flower" class="nav-flower">
+ </a>
   <a href="#home" class="nav-link">Home</a>
   <a href="#about" class="nav-link">About</a>
   <a href="#projects" class="nav-link">Projects</a>
@@ -451,11 +455,9 @@ var firstName = document.querySelector('.nav-first-name');
 if (flower && firstName) {
  flower.addEventListener('mouseenter', function() {
   firstName.textContent = 'Yue';
-  firstName.style.marginRight = '-10px';
 });
 flower.addEventListener('mouseleave', function() {
   firstName.textContent = 'Erica';
-  firstName.style.marginRight = '6px';
 });
 }
 })();
