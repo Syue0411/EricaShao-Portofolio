@@ -241,15 +241,15 @@ html { scroll-behavior: smooth; }
 #chronicle-glow {
   position: fixed;
   top: 0; left: 0;
-  width: 520px; height: 520px;
+  width: 280px; height: 280px;
   pointer-events: none;
   z-index: 999;
   border-radius: 50%;
   background: radial-gradient(
     circle,
-    rgba(56, 195, 210, 0.13) 0%,
-    rgba(30, 150, 190, 0.08) 32%,
-    rgba(18, 90, 145, 0.04) 58%,
+    rgba(232, 201, 122, 0.22) 0%,
+    rgba(201, 168, 76, 0.12) 35%,
+    rgba(180, 140, 50, 0.05) 60%,
     transparent 72%
   );
   transform: translate(-50%, -50%);
@@ -304,13 +304,29 @@ html { scroll-behavior: smooth; }
 .theory-card p { font-size: 13.5px; line-height: 1.78; color: var(--c-muted); }
 .screenshots-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
 .screenshot-item { display: flex; flex-direction: column; gap: 14px; }
-.screenshot-img { width: 100%; border-radius: 3px; overflow: hidden; border: 1px solid rgba(201,168,76,0.15); box-shadow: 0 10px 32px rgba(0,0,0,0.4); background: rgba(30,22,12,0.8); aspect-ratio: 16/10; display: flex; align-items: center; justify-content: center; }
-.screenshot-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.screenshot-placeholder { font-family: 'Cormorant Garamond', serif; font-size: 14px; font-style: italic; color: rgba(201,168,76,0.35); text-align: center; padding: 20px; }
+/* carousel */
+.carousel { position: relative; width: 100%; border-radius: 3px; overflow: hidden; border: 1px solid rgba(201,168,76,0.15); box-shadow: 0 10px 32px rgba(0,0,0,0.4); background: rgba(30,22,12,0.8); aspect-ratio: 16/10; }
+.carousel-track { display: flex; height: 100%; transition: transform 0.35s ease; }
+.carousel-slide { min-width: 100%; height: 100%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; cursor: zoom-in; }
+.carousel-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(20,15,8,0.65); border: 1px solid rgba(201,168,76,0.3); color: var(--gold); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10; transition: background 0.2s, opacity 0.2s; font-size: 14px; line-height: 1; }
+.carousel-btn:hover { background: rgba(201,168,76,0.25); }
+.carousel-btn.prev { left: 8px; }
+.carousel-btn.next { right: 8px; }
+.carousel-dots { position: absolute; bottom: 7px; left: 50%; transform: translateX(-50%); display: flex; gap: 5px; }
+.carousel-dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(201,168,76,0.35); transition: background 0.2s; cursor: pointer; }
+.carousel-dot.active { background: var(--gold); }
+.screenshot-placeholder { font-family: 'Cormorant Garamond', serif; font-size: 14px; font-style: italic; color: rgba(201,168,76,0.35); text-align: center; padding: 20px; width: 100%; }
 .screenshot-label strong { display: block; font-size: 13.5px; font-weight: 600; color: var(--cream); margin-bottom: 5px; }
 .screenshot-label span { font-size: 13px; line-height: 1.7; color: var(--c-muted); }
 .screenshot-full { width: 100%; border-radius: 3px; overflow: hidden; border: 1px solid rgba(201,168,76,0.15); box-shadow: 0 10px 32px rgba(0,0,0,0.4); margin-bottom: 32px; }
 .screenshot-full img { width: 100%; display: block; }
+/* lightbox */
+#lightbox { position: fixed; inset: 0; z-index: 2000; background: rgba(0,0,0,0.92); display: none; align-items: center; justify-content: center; cursor: zoom-out; }
+#lightbox.open { display: flex; }
+#lightbox img { max-width: 90vw; max-height: 88vh; object-fit: contain; border-radius: 3px; box-shadow: 0 0 60px rgba(0,0,0,0.8); pointer-events: none; }
+#lightbox-close { position: absolute; top: 20px; right: 28px; color: rgba(255,255,255,0.6); font-size: 28px; cursor: pointer; line-height: 1; transition: color 0.2s; }
+#lightbox-close:hover { color: #fff; }
 #chronicle-root footer { text-align: center; padding: 36px; font-size: 11.5px; color: rgba(156,140,112,0.5); letter-spacing: 0.08em; border-top: 1px solid rgba(201,168,76,0.1); }
 
 /* ENTRANCE OVERLAY */
@@ -423,9 +439,11 @@ html { scroll-behavior: smooth; }
               <span class="skill-tag-item clickable" data-skill="Learning Experience Design">Learning Experience Design</span>
               <span class="skill-tag-item clickable" data-skill="Curriculum Development">Curriculum Development</span>
               <span class="skill-tag-item clickable" data-skill="Needs Analysis">Needs Analysis</span>
+              <span class="skill-tag-item clickable" data-skill="AI Coding">AI Coding</span>
+              <span class="skill-tag-item clickable" data-skill="AI Coding">Prototyping</span>
               <span class="skill-tag-item clickable" data-skill="UX Research">UX Research</span>
               <span class="skill-tag-item clickable" data-skill="Data Analysis">Data Analysis</span>
-              <span class="skill-tag-item clickable" data-skill="AI Coding">AI Coding</span>
+             
             </div>
           </div>
           <div>
@@ -655,7 +673,7 @@ html { scroll-behavior: smooth; }
     </a>
   </div>
   <div class="c-hero-img">
-    <img src="Chronicle.png" alt="Chronicle — The Great Library interface">
+    <img src="image/Chronicle.png" alt="Chronicle — The Great Library interface">
   </div>
 </div>
 
@@ -693,45 +711,100 @@ html { scroll-behavior: smooth; }
 
   <div class="c-section reveal">
     <p class="c-label">Features</p>
-    <h2 class="c-title">Key <em>Interactions</em></h2>
+    <h2 class="c-title">Key <em>Features</em></h2>
     <div class="screenshot-full">
       <img src="image/P1_fengmian.png" alt="Chronicle Archive — Article Index">
     </div>
     <div class="screenshots-grid">
+
       <div class="screenshot-item">
-        <div class="screenshot-img"><img src="584-page1.png" alt="Collaborative Annotation"></div>
+        <div class="carousel" data-index="0">
+          <div class="carousel-track">
+            <div class="carousel-slide"><img src="584-page1.png" alt="Collaborative Annotation"></div>
+            <div class="carousel-slide"><div class="screenshot-placeholder">Annotation View 2<br>— coming soon —</div></div>
+          </div>
+          <button class="carousel-btn prev">&#8249;</button>
+          <button class="carousel-btn next">&#8250;</button>
+          <div class="carousel-dots">
+            <div class="carousel-dot active"></div>
+            <div class="carousel-dot"></div>
+          </div>
+        </div>
         <div class="screenshot-label">
-          <strong>Collaborative Annotation Layer</strong>
-          <span>Students highlight text and leave sticky-note comments inline. Peers' annotations appear alongside the article; annotated sentences get a soft yellow highlight. Students switch freely between a clean Standard view and a thematic Immersion mode with AI-generated historical backgrounds.</span>
+          <strong>Collaborative Annotation</strong>
+          <span>Students highlight passages and leave sticky-note comments inline. Peers' annotations appear alongside the text in real time — making the collective thinking of the class visible at a glance.</span>
         </div>
       </div>
+
       <div class="screenshot-item">
-        <div class="screenshot-img"><img src="584-era_chat.png" alt="Era Chat"></div>
+        <div class="carousel" data-index="0">
+          <div class="carousel-track">
+            <div class="carousel-slide"><div class="screenshot-placeholder">AI Summary<br>— coming soon —</div></div>
+            <div class="carousel-slide"><div class="screenshot-placeholder">AI Q&amp;A Bot<br>— coming soon —</div></div>
+          </div>
+          <button class="carousel-btn prev">&#8249;</button>
+          <button class="carousel-btn next">&#8250;</button>
+          <div class="carousel-dots">
+            <div class="carousel-dot active"></div>
+            <div class="carousel-dot"></div>
+          </div>
+        </div>
+        <div class="screenshot-label">
+          <strong>AI Response / Summary / Bot</strong>
+          <span>Three layers of AI support: an auto-generated discussion summary surfaces class-wide themes; an AI smart-reply suggests responses that guide students back to the text; and a dedicated Q&amp;A bot answers contextual questions — always nudging students to find evidence in the article.</span>
+        </div>
+      </div>
+
+      <div class="screenshot-item">
+        <div class="carousel" data-index="0">
+          <div class="carousel-track">
+            <div class="carousel-slide"><img src="584-era_chat.png" alt="Era Chat"></div>
+            <div class="carousel-slide"><div class="screenshot-placeholder">Era Chat View 2<br>— coming soon —</div></div>
+          </div>
+          <button class="carousel-btn prev">&#8249;</button>
+          <button class="carousel-btn next">&#8250;</button>
+          <div class="carousel-dots">
+            <div class="carousel-dot active"></div>
+            <div class="carousel-dot"></div>
+          </div>
+        </div>
         <div class="screenshot-label">
           <strong>Era Chat — AI Historical Figures</strong>
-          <span>Students choose a witness from the historical period and converse directly with an AI-powered character — a child mill worker, a factory owner, a displaced farmer, or a social reformer. Each figure speaks from their lived perspective, making the past feel immediate and human.</span>
+          <span>Students choose a historical witness — a child mill worker, a factory owner, a displaced farmer, or a social reformer — and converse directly with an AI-powered character speaking from that lived perspective.</span>
         </div>
       </div>
+
       <div class="screenshot-item">
-        <div class="screenshot-img"><div class="screenshot-placeholder">AI Discussion Summary<br>— screenshot coming soon —</div></div>
-        <div class="screenshot-label">
-          <strong>AI-Generated Discussion Summary</strong>
-          <span>The Analysis Report tab synthesizes all student annotations into a class-wide summary — surfacing common themes, recurring questions, and points of confusion to scaffold deeper whole-class discussion.</span>
+        <div class="carousel" data-index="0">
+          <div class="carousel-track">
+            <div class="carousel-slide"><div class="screenshot-placeholder">Teacher Dashboard<br>— coming soon —</div></div>
+            <div class="carousel-slide"><div class="screenshot-placeholder">Teacher Dashboard View 2<br>— coming soon —</div></div>
+          </div>
+          <button class="carousel-btn prev">&#8249;</button>
+          <button class="carousel-btn next">&#8250;</button>
+          <div class="carousel-dots">
+            <div class="carousel-dot active"></div>
+            <div class="carousel-dot"></div>
+          </div>
         </div>
-      </div>
-      <div class="screenshot-item">
-        <div class="screenshot-img"><div class="screenshot-placeholder">Teacher Dashboard<br>— screenshot coming soon —</div></div>
         <div class="screenshot-label">
           <strong>Teacher Dashboard</strong>
-          <span>Instructors monitor student participation, pin comments as Official Logs, and review AI-generated summaries of collective interests and misconceptions — enabling responsive, data-informed instruction without reading every annotation manually.</span>
+          <span>Teachers enter a dedicated Dashboard with participation data, pinning tools for key annotations, and AI-synthesized class summaries — enabling responsive, data-informed instruction without reading every comment manually.</span>
         </div>
       </div>
+
     </div>
   </div>
 </div>
 
 <footer>© 2026 Erica (Yue) Shao &nbsp;·&nbsp; Chapel Hill, NC</footer>
 </div><!-- end #chronicle-root -->
+
+<!-- LIGHTBOX -->
+<div id="lightbox" onclick="closeLightbox()">
+  <span id="lightbox-close" onclick="closeLightbox()">&#x2715;</span>
+  <img id="lightbox-img" src="" alt="">
+</div>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 (function() {
@@ -822,6 +895,63 @@ function navTo(id, linkEl) {
   if (linkEl) linkEl.classList.add('active');
 }
 
+/* ── carousel init ── */
+function initCarousels() {
+  document.querySelectorAll('.carousel').forEach(function(car) {
+    var track = car.querySelector('.carousel-track');
+    var slides = car.querySelectorAll('.carousel-slide');
+    var dots = car.querySelectorAll('.carousel-dot');
+    var idx = 0;
+    var total = slides.length;
+
+    function goTo(n) {
+      idx = (n + total) % total;
+      track.style.transform = 'translateX(-' + idx * 100 + '%)';
+      dots.forEach(function(d, i) { d.classList.toggle('active', i === idx); });
+    }
+
+    car.querySelector('.prev').addEventListener('click', function(e) {
+      e.stopPropagation(); goTo(idx - 1);
+    });
+    car.querySelector('.next').addEventListener('click', function(e) {
+      e.stopPropagation(); goTo(idx + 1);
+    });
+    dots.forEach(function(d, i) {
+      d.addEventListener('click', function(e) { e.stopPropagation(); goTo(i); });
+    });
+
+    // click image to open lightbox
+    slides.forEach(function(slide) {
+      slide.addEventListener('click', function() {
+        var img = slide.querySelector('img');
+        if (img) openLightbox(img.src, img.alt);
+      });
+    });
+  });
+}
+
+/* ── lightbox ── */
+function openLightbox(src, alt) {
+  var lb = document.getElementById('lightbox');
+  var lbImg = document.getElementById('lightbox-img');
+  lbImg.src = src;
+  lbImg.alt = alt || '';
+  lb.classList.add('open');
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeLightbox();
+});
+
+// init carousels when Chronicle page opens
+var _origStart = window._startChronicleGlow;
+window._startChronicleGlow = function() {
+  if (_origStart) _origStart();
+  setTimeout(initCarousels, 100);
+};
+
 /* ── skill tag click via event delegation ── */
 document.addEventListener('click', function(e) {
   var tag = e.target.closest('.skill-tag-item.clickable');
@@ -890,3 +1020,4 @@ function showPortfolio() {
 </script>
 </body>
 </html>
+
