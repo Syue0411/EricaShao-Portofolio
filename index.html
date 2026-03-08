@@ -426,7 +426,7 @@ html { scroll-behavior: smooth; }
   </div>
 </section>
 
-<section id="education" style="display:none">
+<section id="education">
   <div class="edu-inner">
     <p class="s-label reveal">Education</p>
     <h2 class="s-title reveal">Academic<br><em>Background</em></h2>
@@ -450,7 +450,7 @@ html { scroll-behavior: smooth; }
   </div>
 </section>
 
-<section id="experience" style="display:none">
+<section id="experience">
   <div class="exp-inner">
     <div class="exp-title-row">
       <div>
@@ -883,11 +883,6 @@ function getOffsetTop(el) {
 }
 
 function navTo(id, linkEl) {
-  var hiddenSections = ['education', 'experience'];
-  hiddenSections.forEach(function(sid) {
-    var s = document.getElementById(sid);
-    if (s) s.style.display = (sid === id) ? 'flex' : 'none';
-  });
   var el = document.getElementById(id);
   if (el) {
     var top = getOffsetTop(el) - 70;
